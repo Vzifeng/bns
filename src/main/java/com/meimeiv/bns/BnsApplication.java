@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @SpringBootApplication
 @MapperScan(basePackages = "com.meimeiv.bns.dao")
 @ComponentScan(basePackages = {"com.meimeiv.bns"})
+@Configuration
 public class BnsApplication {
 
     public static void main(String[] args) {

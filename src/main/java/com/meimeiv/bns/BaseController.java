@@ -30,6 +30,7 @@ public class BaseController {
         }else {
             errorMap.put("errorCode",BusinessErrorEnum.UNKNOWN.getErrorCode());
             errorMap.put("errorMsg",BusinessErrorEnum.UNKNOWN.getErrorMsg());
+            System.out.println(ex.getMessage());
         }
         return CommonResponse.create(errorMap,"fail");
     }

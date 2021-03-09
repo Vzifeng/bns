@@ -114,4 +114,93 @@
       department_id = #{departmentId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByUserPhone" parameterType="map" resultType="int">
+    select
+      count(id)
+    from user where user_phone = #{userPhone}
+  </select>
+
+  <select id="selectByUserPhone1" parameterType="map" resultType="map">
+    select
+      id,
+      user_name userName,
+      user_sex userSex,
+      user_phone userPhone,
+      user_addr userAddr,
+      user_registration_time userRegistrationTime
+    from user where user_phone = #{userPhone}
+  </select>
+
+  <insert id="insertUser" parameterType="map" keyProperty="id" useGeneratedKeys="true">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userSex != null">
+        user_sex,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="userAddr != null">
+        user_addr,
+      </if>
+      <if test="userRegistrationTime != null">
+        user_registration_time,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=BIT},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userAddr != null">
+        #{userAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="userRegistrationTime != null">
+        #{userRegistrationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="getUserList" parameterType="map" resultType="map">
+      select
+        id,
+        user_name userName,
+        case when user_sex = 0 then "男" when user_sex = 1 then "女" else "保密" end userSex,
+        user_phone userPhone,
+        user_addr userAddr,
+        user_registration_time userRegistrationTime
+      from user
+      <where>
+        <if test="userName != '' and userName != null">
+          user_name like concat('%',#{userName},'%')
+        </if>
+        <if test="userPhone !='' and userPhone != null">
+          and user_phone like concat('%',#{userPhone},'%')
+        </if>
+        <if test="userSex != null">
+          and user_sex = #{userSex}
+        </if>
+      </where>
+  </select>
 </mapper>

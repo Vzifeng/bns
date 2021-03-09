@@ -7,7 +7,9 @@ public enum BusinessErrorEnum implements CommonError {
     IS_NOT_PHONE_NUM(100003,"不是正确的手机号"),
 
     USER_NOT_EXIST(200001,"用户不存在"),
+    USER_EXIST(200004,"用户已存在"),
     USER_OR_PASSWORD_ERROR(200002,"手机号或者密码错误"),
+    USER_INSERT_FAIL(200003,"用户注册失败"),
 
     //token模块-验证模块-过期
     TOKEN_VALIDATE_EXPIRED_ERROR (10200302,"token过期"),

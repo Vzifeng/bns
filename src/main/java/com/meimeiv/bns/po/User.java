@@ -5,7 +5,7 @@ public class User {
 
     private String userName;
 
-    private Boolean userSex;
+    private Integer userSex;
 
     private String userPhone;
 
@@ -31,11 +31,11 @@ public class User {
         this.userName = userName == null ? null : userName.trim();
     }
 
-    public Boolean getUserSex() {
+    public Integer getUserSex() {
         return userSex;
     }
 
-    public void setUserSex(Boolean userSex) {
+    public void setUserSex(Integer userSex) {
         this.userSex = userSex;
     }
 

@@ -24,7 +24,7 @@ public class UserVo {
     @NotNull(message = "密码不能为空")
     @Size(min = 6,max = 18,message = "密码长度在6位到18位之间")
     private String password;
-
+    @NotNull(message = "地址不能为空")
     private String userAddr;
 
     private Integer roleId;

@@ -182,14 +182,12 @@
     </trim>
   </insert>
 
-  <select id="getUserList" parameterType="map" resultType="map">
+  <select id="getUserList" parameterType="map" resultType="java.util.LinkedHashMap">
       select
         id,
         user_name userName,
         case when user_sex = 0 then "男" when user_sex = 1 then "女" else "保密" end userSex,
-        user_phone userPhone,
-        user_addr userAddr,
-        user_registration_time userRegistrationTime
+        user_phone userPhone
       from user
       <where>
         <if test="userName != '' and userName != null">
@@ -202,5 +200,28 @@
           and user_sex = #{userSex}
         </if>
       </where>
+  </select>
+
+  <select id="getUserList1" resultType="com.meimeiv.bns.po.User" parameterType="map">
+    select
+    id,
+    user_name userName,
+    user_sex userSex,
+    /*case when user_sex = 0 then "男" when user_sex = 1 then "女" else "保密" end userSex,*/
+    user_phone userPhone,
+    user_addr userAddr,
+    user_registration_time userRegistrationTime
+    from user
+    <where>
+      <if test="userName != '' and userName != null">
+        user_name like concat('%',#{userName},'%')
+      </if>
+      <if test="userPhone !='' and userPhone != null">
+        and user_phone like concat('%',#{userPhone},'%')
+      </if>
+      <if test="userSex != null">
+        and user_sex = #{userSex}
+      </if>
+    </where>
   </select>
 </mapper>

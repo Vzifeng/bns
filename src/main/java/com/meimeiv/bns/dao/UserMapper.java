@@ -2,6 +2,7 @@ package com.meimeiv.bns.dao;
 
 import com.meimeiv.bns.po.User;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,5 +25,7 @@ public interface UserMapper {
 
      Map<String,Object> selectByUserPhone1(Map<String,Object> params);
 
-    List<Map<String,Object>> getUserList(Map<String,Object> params);
+    List<LinkedHashMap<String,Object>> getUserList(Map<String,Object> params);
+
+    List<User> getUserList1(Object o);
 }

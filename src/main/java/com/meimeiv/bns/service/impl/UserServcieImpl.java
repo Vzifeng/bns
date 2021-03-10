@@ -13,10 +13,12 @@ import com.meimeiv.bns.service.UserService;
 import com.meimeiv.bns.util.DateUtil;
 import com.meimeiv.bns.util.EncodeByMd5Util;
 import com.meimeiv.bns.util.MapUtil;
+import com.meimeiv.bns.util.PoiUtil;
 import com.meimeiv.bns.validator.ValidationResult;
 import com.meimeiv.bns.validator.ValidatorImpl;
 import com.meimeiv.bns.vo.request.LoginVo;
 import com.meimeiv.bns.vo.request.UserVo;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.meimeiv.bns.util.ValidatorParamsUtil.validator;
@@ -110,5 +114,28 @@ public class UserServcieImpl implements UserService {
         pager.setTotalRow((int) page.getTotal());
         pager.setList(page.getResult());
         return pager;
+    }
+
+    @Override
+    public HSSFWorkbook exccelTest() {
+        List<LinkedHashMap<String,Object>> mapList = userMapper.getUserList(null);
+        String[] headers1 = { "id@5000", "姓名@5000", "性别@2000", "电话@8000"};
+        try {
+            return PoiUtil.createExcel2Export1("用户列表","用户列表",headers1,mapList);
+        } catch (Exception e) {
+            LOGGER.error("【生成Excel表格数据失败】", e);
+            throw new RuntimeException("生成Excel表格数据失败", e);
+        }
+       /* List<User> userList = userMapper.getUserList1(null);
+        String[] headers = { "id@id", "姓名@userName", "电话@userPhone",
+                "性别@userSex"};
+
+        try {
+            return PoiUtil.createExcel2Export("用户列表", "用户列表", headers,
+                    userList);
+        } catch (Exception e) {
+            LOGGER.error("【生成Excel表格数据失败】", e);
+            throw new RuntimeException("生成Excel表格数据失败", e);
+        }*/
     }
 }

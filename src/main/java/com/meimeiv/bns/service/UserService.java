@@ -4,6 +4,7 @@ import com.meimeiv.bns.common.Pager;
 import com.meimeiv.bns.error.BusnessException;
 import com.meimeiv.bns.vo.request.LoginVo;
 import com.meimeiv.bns.vo.request.UserVo;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.util.Map;
 
@@ -13,4 +14,6 @@ public interface UserService {
     Map<String,Object> login(LoginVo loginVo) throws BusnessException;
 
     Pager getUserList(Map<String,Object> params) throws BusnessException;
+
+    HSSFWorkbook exccelTest();
 }
